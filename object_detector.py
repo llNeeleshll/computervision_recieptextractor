@@ -1,6 +1,7 @@
-from yoloprocessor import ExecuteInference
+from yoloprocessor import ExecuteInference 
 import cv2
 
+# Non operational
 def from_yolo_to_opencv(x,y,w,h):
 
     nx = int(x)
@@ -15,6 +16,8 @@ def mark_prediction(pred, image, model):
     for i, det in enumerate(pred):
 
         print(f'Detection: {i}, {det}')   
+
+        #if type(det['points'][0] == Tensor)
 
         xmin, ymin, xmax, ymax = from_yolo_to_opencv(det['points'][0],det['points'][1],det['points'][2],det['points'][3])
         
@@ -56,7 +59,7 @@ def run_for_video(model):
 
 def run_for_image(model):
 
-    image = cv2.imread("rest_recpt.jpg")
+    image = cv2.imread("zidane.jpg")
     dh, dw, _ = image.shape
     pred = model.predict(image)
 
@@ -69,12 +72,12 @@ def run_for_image(model):
 
 
 img_size = 640
-weights = "reciept_weights.pt"
+weights = "yolov5s.pt"
 
 model = ExecuteInference(weight=weights, confidence=0.25, \
             img_size=img_size, agnostic_nms=False, gpu=True, iou=0.5)
 
-run_for_image(model)
+run_for_video(model)
 
 
 
